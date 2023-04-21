@@ -1,4 +1,4 @@
-# CS160GROUPPROJECT
+# CS 160 GROUP PROJECT
 Sure! Here's an example of the text that could be included in the readme file for your Festival Artist Selection web app:
 
 # Festival Artist Selection

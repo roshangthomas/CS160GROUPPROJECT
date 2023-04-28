@@ -73,96 +73,197 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+        .optimal-schedule-section {
+            font-size: 20px;
+            color: black;
+            margin: 20px;
+        }
+
+        .optimal-schedule-section h2,
+        .optimal-schedule-section h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
 <body>
     <h1 id="coachella-title">Coachella</h1>
-    <div id="time-select">
-        <label for="arrival-time" class="time-input-label">Arrival Time:</label>
-        <input type="time" id="arrival-time" class="time-input" name="arrival-time">
-        <label for="leaving-time" class="time-input-label">Leaving Time:</label>
-        <input type="time" id="leaving-time" class="time-input" name="leaving-time">
-    </div>
-    <div id="artist-select">
-        <div class="artist-select-box">
-            <label for="artist-select-1" class="artist-select-label">Perfered Artist 1:</label>
-            <select id="artist-select-1" class="artist-select" name="artist-select-1">
-                <option value="">Select an artist</option>
-                <option value="artist-1">Billie Eilish</option>
-                <option value="artist-2">Ariana Grande</option>
-                <option value="artist-3">Tame Impala</option>
-                <option value="artist-4">Childish Gambino</option>
-                <option value="artist-5">Khalid</option>
-            </select>
+    <form id="artist-form" onsubmit="return submitForm(event)">
+        <div id="time-select">
+            <label for="arrival-time" class="time-input-label">Arrival Time:</label>
+            <input type="time" id="arrival-time" class="time-input" name="arrival-time">
+            <label for="leaving-time" class="time-input-label">Leaving Time:</label>
+            <input type="time" id="leaving-time" class="time-input" name="leaving-time">
         </div>
-        <div class="artist-select-box">
-            <label for="artist-select-2" class="artist-select-label">Perfered Artist 2:</label>
-            <select id="artist-select-2" class="artist-select" name="artist-select-2">
-                <option value="">Select an artist</option>
-                <option value="artist-1">Billie Eilish</option>
-                <option value="artist-2">Ariana Grande</option>
-                <option value="artist-3">Tame Impala</option>
-                <option value="artist-4">Childish Gambino</option>
-                <option value="artist-5">Khalid</option>
-            </select>
-        </div>
-        <div class="artist-select-box">
-            <label for="artist-select-3" class="artist-select-label">Perfered Artist 3:</label>
-            <select id="artist-select-3" class="artist-select" name="artist-select-3">
-                <option value="">Select an artist</option>
-                <option value="artist-1">Billie Eilish</option>
-                <option value="artist-2">Ariana Grande</option>
-                <option value="artist-3">Tame Impala</option>
-                <option value="artist-4">Childish Gambino</option>
-                <option value="artist-5">Khalid</option>
-            </select>
-        </div>
-        <div class="artist-select-box">
-            <label for="artist-select-4" class="artist-select-label">Perfered Artist 4:</label>
-            <select id="artist-select-4" class="artist-select" name="artist-select-4">
-                <option value="">Select an artist</option>
-                <option value="artist-1">Billie Eilish</option>
-                <option value="artist-2">Ariana Grande</option>
-                <option value="artist-3">Tame Impala</option>
-                <option value="artist-4">Childish Gambino</option>
-                <option value="artist-5">Khalid</option>
-            </select>
-        </div>
-        <div class="artist-select-box">
-            <label for="artist-select-5" class="artist-select-label">Perfered Artist 5:</label>
-            <select id="artist-select-5" class="artist-select" name="artist-select-5">
-                <option value="">Select an artist</option>
-                <option value="artist-1">Billie Eilish</option>
-                <option value="artist-2">Ariana Grande</option>
-                <option value="artist-3">Tame Impala</option>
-                <option value="artist-4">Childish Gambino</option>
-                <option value="artist-5">Khalid</option>
-            </select>
-        </div>
+        <div id="artist-select">
+            <div class="artist-select-box">
+                <label for="artist-select-1" class="artist-select-label">Perfered Artist 1:</label>
+                <select id="artist-select-1" class="artist-select" name="artist-select-1">
+                    <option value="">Select an artist</option>
+                    <option value="artist-1">Billie Eilish</option>
+                    <option value="artist-2">Ariana Grande</option>
+                    <option value="artist-3">Tame Impala</option>
+                    <option value="artist-4">Childish Gambino</option>
+                    <option value="artist-5">Khalid</option>
+                </select>
+            </div>
+            <div class="artist-select-box">
+                <label for="artist-select-2" class="artist-select-label">Perfered Artist 2:</label>
+                <select id="artist-select-2" class="artist-select" name="artist-select-2">
+                    <option value="">Select an artist</option>
+                    <option value="artist-1">Billie Eilish</option>
+                    <option value="artist-2">Ariana Grande</option>
+                    <option value="artist-3">Tame Impala</option>
+                    <option value="artist-4">Childish Gambino</option>
+                    <option value="artist-5">Khalid</option>
+                </select>
+            </div>
+            <div class="artist-select-box">
+                <label for="artist-select-3" class="artist-select-label">Perfered Artist 3:</label>
+                <select id="artist-select-3" class="artist-select" name="artist-select-3">
+                    <option value="">Select an artist</option>
+                    <option value="artist-1">Billie Eilish</option>
+                    <option value="artist-2">Ariana Grande</option>
+                    <option value="artist-3">Tame Impala</option>
+                    <option value="artist-4">Childish Gambino</option>
+                    <option value="artist-5">Khalid</option>
+                </select>
+            </div>
+            <div class="artist-select-box">
+                <label for="artist-select-4" class="artist-select-label">Perfered Artist 4:</label>
+                <select id="artist-select-4" class="artist-select" name="artist-select-4">
+                    <option value="">Select an artist</option>
+                    <option value="artist-1">Billie Eilish</option>
+                    <option value="artist-2">Ariana Grande</option>
+                    <option value="artist-3">Tame Impala</option>
+                    <option value="artist-4">Childish Gambino</option>
+                    <option value="artist-5">Khalid</option>
+                </select>
+            </div>
+            <div class="artist-select-box">
+                <label for="artist-select-5" class="artist-select-label">Perfered Artist 5:</label>
+                <select id="artist-select-5" class="artist-select" name="artist-select-5">
+                    <option value="">Select an artist</option>
+                    <option value="artist-1">Billie Eilish</option>
+                    <option value="artist-2">Ariana Grande</option>
+                    <option value="artist-3">Tame Impala</option>
+                    <option value="artist-4">Childish Gambino</option>
+                    <option value="artist-5">Khalid</option>
+                </select>
+            </div>
 
-        <input type="submit" value="Submit" class="submit-button">
-
+            <input type="submit" value="Submit" class="submit-button">
+    </form>    
     </div>
 </body>
 
-<!-- HTML code to display the order in which to see the selected artists -->
-<div class="order-section">
-    <h2>Artist Order:</h2>
-    <p id="artist-order"></p>
+<!-- HTML code to display the optimal schedule and optimality score -->
+<div class="optimal-schedule-section">
+    <h2>Optimal Schedule:</h2>
+    <p id="optimal-schedule"></p>
+    <h3>Optimality Score:</h3>
+    <p id="optimality-score"></p>
 </div>
 
 <!-- JavaScript code to generate and display the artist order -->
 <script>
-    // Define an array of the selected artists
-    const selectedArtists = ["Artist 1", "Artist 3", "Artist 5"];
+    function optimalSchedule(schedule, importance, eventNames) {
+  // Sort the appointments by their importance
+  const sortedSchedule = schedule.slice().sort((a, b) => importance[schedule.indexOf(b)] - importance[schedule.indexOf(a)]);
+  const sortedEventNames = eventNames.slice().sort((a, b) => importance[eventNames.indexOf(b)] - importance[eventNames.indexOf(a)]);
 
-    // Generate the order in which to see the selected artists
-    const artistOrder = selectedArtists.sort();
+  // Create an empty array to hold the scheduled appointments and event names
+  const scheduled = [];
+  const scheduledNames = [];
 
-    // Display the artist order in the HTML
-    const artistOrderElement = document.getElementById("artist-order");
-    artistOrderElement.textContent = artistOrder.join(", ");
+  // Iterate through each appointment in the sorted schedule
+  for (let i = 0; i < sortedSchedule.length; i++) {
+    const appt = sortedSchedule[i];
+
+    // Check if the appointment overlaps with any already scheduled appointments
+    let overlaps = false;
+    for (let j = 0; j < scheduled.length; j++) {
+      const scheduledAppt = scheduled[j];
+      if (appt[0] < scheduledAppt[1] && appt[1] > scheduledAppt[0]) {
+        overlaps = true;
+        break;
+      }
+    }
+
+    // If the appointment doesn't overlap with any already scheduled appointments, add it to the schedule
+    if (!overlaps) {
+      scheduled.push(appt);
+      scheduledNames.push(sortedEventNames[i]);
+    }
+  }
+
+  // Sort the scheduled appointments and event names in order of their start times
+  for (let i = 0; i < scheduled.length - 1; i++) {
+    for (let j = i + 1; j < scheduled.length; j++) {
+      if (scheduled[j][0] < scheduled[i][0]) {
+        const temp = scheduled[i];
+        scheduled[i] = scheduled[j];
+        scheduled[j] = temp;
+
+        const tempName = scheduledNames[i];
+        scheduledNames[i] = scheduledNames[j];
+        scheduledNames[j] = tempName;
+      }
+    }
+  }
+
+  // Calculate the optimality score
+  const totalScheduledTime = scheduled.reduce((total, appt) => total + (appt[1] - appt[0]), 0);
+  const totalEventTime = schedule.reduce((total, appt) => total + (appt[1] - appt[0]), 0);
+  const optimalityScore = totalScheduledTime / totalEventTime;
+
+  return [scheduled, scheduledNames, optimalityScore];
+}
+
+
+    function submitForm(event) {
+        event.preventDefault(); // Prevent the form from refreshing the page
+
+        // Get the selected artists and their priorities
+        const artistSelectElements = document.querySelectorAll(".artist-select");
+        const selectedArtists = [];
+        const priorities = [];
+        for (let i = 0; i < artistSelectElements.length; i++) {
+            const artist = artistSelectElements[i].options[artistSelectElements[i].selectedIndex].text;
+            if (artist !== "Select an artist") {
+                selectedArtists.push(artist);
+                priorities.push(i + 1);
+            }
+        }
+
+        // Define the performance times for each artist (between 6pm and 2am)
+        const performanceTimes = [
+            ["18:00", "19:30"],
+            ["19:00", "20:30"],
+            ["20:00", "21:30"],
+            ["21:00", "22:30"],
+            ["22:00", "23:30"]
+        ];
+
+        // Create the schedule with start and end times as Date objects
+        const schedule = performanceTimes.map(time => {
+            const startTime = new Date(`1970-01-01T${time[0]}:00`);
+            const endTime = new Date(`1970-01-01T${time[1]}:00`);
+            return [startTime, endTime];
+        });
+
+        // Get the optimal schedule and optimality score
+        const [optimal, optimalNames, score] = optimalSchedule(schedule, priorities, selectedArtists);
+
+        // Display the optimal schedule and optimality score
+        const optimalScheduleElement = document.getElementById("optimal-schedule");
+        const optimalityScoreElement = document.getElementById("optimality-score");
+        optimalScheduleElement.innerHTML = optimal.map((time, index) => {
+            return `${optimalNames[index]}: ${time[0].toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${time[1].toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        }).join("<br>");
+        optimalityScoreElement.textContent = score.toFixed(2);
+    }
 </script>
 
 </html>

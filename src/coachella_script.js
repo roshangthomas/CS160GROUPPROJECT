@@ -1,3 +1,5 @@
+//TODO: THIS SHOULD GO INTO THE COACHELLA UNDER THE SCRIPT TAG 
+
 function optimalSchedule(schedule, importance, eventNames) {
   // Sort the appointments by their importance
   const sortedSchedule = schedule.slice().sort((a, b) => importance[schedule.indexOf(b)] - importance[schedule.indexOf(a)]);

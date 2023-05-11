@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" type="text/css" href="cochella.css">
     <title>Coachella</title>
 
     <style>
@@ -73,6 +74,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .optimal-schedule-section {
             font-size: 20px;
             color: black;
@@ -154,72 +156,76 @@
             </div>
 
             <input type="submit" value="Submit" class="submit-button">
-    </form>    
+    </form>
     </div>
 </body>
 
 <!-- HTML code to display the optimal schedule and optimality score -->
 <div class="optimal-schedule-section">
-    <h2>Optimal Schedule:</h2>
-    <p id="optimal-schedule"></p>
-    <h3>Optimality Score:</h3>
-    <p id="optimality-score"></p>
+    <div class="optimal-score-box">
+        <h2>Optimality Score:</h2>
+        <div class="score-number-box" id="score-number-box"></div>
+    </div>
+    <div class="schedule-box">
+        <h3>Schedule:</h3>
+        <div id="schedule"></div>
+    </div>
 </div>
 
 <!-- JavaScript code to generate and display the artist order -->
 <script>
     function optimalSchedule(schedule, importance, eventNames) {
-  // Sort the appointments by their importance
-  const sortedSchedule = schedule.slice().sort((a, b) => importance[schedule.indexOf(b)] - importance[schedule.indexOf(a)]);
-  const sortedEventNames = eventNames.slice().sort((a, b) => importance[eventNames.indexOf(b)] - importance[eventNames.indexOf(a)]);
+        // Sort the appointments by their importance
+        const sortedSchedule = schedule.slice().sort((a, b) => importance[schedule.indexOf(b)] - importance[schedule.indexOf(a)]);
+        const sortedEventNames = eventNames.slice().sort((a, b) => importance[eventNames.indexOf(b)] - importance[eventNames.indexOf(a)]);
 
-  // Create an empty array to hold the scheduled appointments and event names
-  const scheduled = [];
-  const scheduledNames = [];
+        // Create an empty array to hold the scheduled appointments and event names
+        const scheduled = [];
+        const scheduledNames = [];
 
-  // Iterate through each appointment in the sorted schedule
-  for (let i = 0; i < sortedSchedule.length; i++) {
-    const appt = sortedSchedule[i];
+        // Iterate through each appointment in the sorted schedule
+        for (let i = 0; i < sortedSchedule.length; i++) {
+            const appt = sortedSchedule[i];
 
-    // Check if the appointment overlaps with any already scheduled appointments
-    let overlaps = false;
-    for (let j = 0; j < scheduled.length; j++) {
-      const scheduledAppt = scheduled[j];
-      if (appt[0] < scheduledAppt[1] && appt[1] > scheduledAppt[0]) {
-        overlaps = true;
-        break;
-      }
+            // Check if the appointment overlaps with any already scheduled appointments
+            let overlaps = false;
+            for (let j = 0; j < scheduled.length; j++) {
+                const scheduledAppt = scheduled[j];
+                if (appt[0] < scheduledAppt[1] && appt[1] > scheduledAppt[0]) {
+                    overlaps = true;
+                    break;
+                }
+            }
+
+            // If the appointment doesn't overlap with any already scheduled appointments, add it to the schedule
+            if (!overlaps) {
+                scheduled.push(appt);
+                scheduledNames.push(sortedEventNames[i]);
+            }
+        }
+
+        // Sort the scheduled appointments and event names in order of their start times
+        for (let i = 0; i < scheduled.length - 1; i++) {
+            for (let j = i + 1; j < scheduled.length; j++) {
+                if (scheduled[j][0] < scheduled[i][0]) {
+                    const temp = scheduled[i];
+                    scheduled[i] = scheduled[j];
+                    scheduled[j] = temp;
+
+                    const tempName = scheduledNames[i];
+                    scheduledNames[i] = scheduledNames[j];
+                    scheduledNames[j] = tempName;
+                }
+            }
+        }
+
+        // Calculate the optimality score
+        const totalScheduledTime = scheduled.reduce((total, appt) => total + (appt[1] - appt[0]), 0);
+        const totalEventTime = schedule.reduce((total, appt) => total + (appt[1] - appt[0]), 0);
+        const optimalityScore = totalScheduledTime / totalEventTime;
+
+        return [scheduled, scheduledNames, optimalityScore];
     }
-
-    // If the appointment doesn't overlap with any already scheduled appointments, add it to the schedule
-    if (!overlaps) {
-      scheduled.push(appt);
-      scheduledNames.push(sortedEventNames[i]);
-    }
-  }
-
-  // Sort the scheduled appointments and event names in order of their start times
-  for (let i = 0; i < scheduled.length - 1; i++) {
-    for (let j = i + 1; j < scheduled.length; j++) {
-      if (scheduled[j][0] < scheduled[i][0]) {
-        const temp = scheduled[i];
-        scheduled[i] = scheduled[j];
-        scheduled[j] = temp;
-
-        const tempName = scheduledNames[i];
-        scheduledNames[i] = scheduledNames[j];
-        scheduledNames[j] = tempName;
-      }
-    }
-  }
-
-  // Calculate the optimality score
-  const totalScheduledTime = scheduled.reduce((total, appt) => total + (appt[1] - appt[0]), 0);
-  const totalEventTime = schedule.reduce((total, appt) => total + (appt[1] - appt[0]), 0);
-  const optimalityScore = totalScheduledTime / totalEventTime;
-
-  return [scheduled, scheduledNames, optimalityScore];
-}
 
 
     function submitForm(event) {
@@ -260,7 +266,7 @@
         const optimalScheduleElement = document.getElementById("optimal-schedule");
         const optimalityScoreElement = document.getElementById("optimality-score");
         optimalScheduleElement.innerHTML = optimal.map((time, index) => {
-            return `${optimalNames[index]}: ${time[0].toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${time[1].toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            return `${optimalNames[index]}: ${time[0].toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${time[1].toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
         }).join("<br>");
         optimalityScoreElement.textContent = score.toFixed(2);
     }
